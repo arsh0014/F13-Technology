@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from '../../utils/gsapSetup';
 import { formatLoaderProgress } from '../../utils/motionConfig';
+import { BrandWordmark } from '../BrandWordmark';
 
 interface IntroLoaderProps {
   onComplete: () => void;
@@ -121,7 +122,7 @@ export function IntroLoader({ onComplete }: IntroLoaderProps) {
 
       <div className="relative z-10 h-full text-white flex flex-col justify-between p-6 sm:p-10 lg:p-12">
         <div className="flex items-center justify-between text-[11px] uppercase tracking-[0.08em] text-white/55">
-          <span>/arkon · Creative Technology</span>
+          <BrandWordmark tone="light" />
           <span className="font-mono tabular-nums">Zurich · London · New York</span>
         </div>
 
@@ -131,7 +132,7 @@ export function IntroLoader({ onComplete }: IntroLoaderProps) {
               ref={logoRef}
               className="font-display font-bold tracking-tight text-white text-5xl sm:text-7xl lg:text-8xl will-change-transform"
             >
-              /arkon<span className="text-[#00C2A8]">.</span>
+              <BrandWordmark tone="light" />
             </div>
           </div>
 

@@ -3,6 +3,7 @@ import { motion } from 'motion/react';
 import { ArrowUp } from 'lucide-react';
 import { HEADER_NAV_ITEMS } from '../data/siteContent';
 import { KineticText } from './motion/KineticLink';
+import { BrandWordmark } from './BrandWordmark';
 
 interface NavbarProps {
   introComplete?: boolean;
@@ -83,7 +84,7 @@ export function Navbar({
         className={`fixed top-0 inset-x-0 z-40 pointer-events-none transition-colors duration-300 ${textTone} ${headerSurface}`}
       >
         <div className="w-full px-5 sm:px-8 lg:px-10 h-14 sm:h-16 flex items-center justify-between gap-4">
-          {/* Extreme Left: Minimal /arkon wordmark */}
+          {/* Extreme Left: F13 Technologies wordmark */}
           <a
             href="#hero"
             onClick={(e) => {
@@ -94,7 +95,7 @@ export function Navbar({
           >
             <KineticText>
               <span className="inline-flex items-baseline">
-                <span>/arkon</span>
+                <BrandWordmark tone={topOverDark ? 'light' : 'dark'} />
               </span>
             </KineticText>
           </a>

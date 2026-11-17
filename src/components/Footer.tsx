@@ -3,6 +3,7 @@ import { ArrowRight, X } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { gsap } from '../utils/gsapSetup';
 import { KineticText } from './motion/KineticLink';
+import { BrandWordmark } from './BrandWordmark';
 
 interface FooterProps {
   onNavigateSection: (sectionId: string) => void;
@@ -64,7 +65,7 @@ export function Footer({ onNavigateSection, onSelectServiceFromFooter }: FooterP
         ref={footerInnerRef}
         className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 will-change-transform"
       >
-        {/* Top Row matching NK Studio Footer: Oversized /arkon® left + Mission Statement & Contact Links right */}
+        {/* Top Row: oversized F13 Technologies mark + mission statement and contact links */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 pb-16 sm:pb-20 items-start">
           <div className="lg:col-span-6">
             <a
@@ -73,11 +74,11 @@ export function Footer({ onNavigateSection, onSelectServiceFromFooter }: FooterP
                 e.preventDefault();
                 onNavigateSection('hero');
               }}
-              className="inline-flex items-start font-display font-bold tracking-[-0.045em] text-white leading-none"
+              className="inline-flex items-start font-display font-bold tracking-[-0.045em] leading-none"
               style={{ fontSize: 'clamp(3.25rem, 6.8vw, 6.25rem)' }}
             >
-              <span>/arkon</span>
-              <span className="text-xl sm:text-2xl ml-1 mt-1 font-medium text-[#00C2A8]">&reg;</span>
+              <BrandWordmark tone="light" />
+              <span className="text-xl sm:text-2xl ml-1 mt-1 font-medium text-white">&reg;</span>
             </a>
           </div>
 
@@ -104,11 +105,11 @@ export function Footer({ onNavigateSection, onSelectServiceFromFooter }: FooterP
           </div>
         </div>
 
-        {/* Middle Row: /arkon.news Briefing Left + 5 Uppercase Directory Columns Right */}
+        {/* Middle Row: newsletter briefing + directory columns */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 py-12 sm:py-16 border-t border-white/12">
           <div className="lg:col-span-4 space-y-5">
             <div>
-              <div className="font-display text-lg font-semibold text-white">/arkon.news</div>
+              <div className="font-display text-lg font-semibold inline-flex"><BrandWordmark tone="light" /></div>
               <p className="mt-2 text-xs text-white/55 leading-relaxed max-w-xs">
                 Our quarterly dispatch on enterprise architecture, applied intelligence, and
                 systems design. No filler, no noise.
@@ -117,7 +118,7 @@ export function Footer({ onNavigateSection, onSelectServiceFromFooter }: FooterP
 
             {newsletterSubscribed ? (
               <div className="text-xs font-mono text-[#00C2A8] py-2">
-                Subscribed to quarterly /arkon.news dispatch.
+                Subscribed to quarterly F13 Technologies dispatch.
               </div>
             ) : (
               <form

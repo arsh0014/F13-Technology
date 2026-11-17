@@ -1,4 +1,5 @@
 import { AnimatePresence, motion } from 'motion/react';
+import { BrandWordmark } from '../BrandWordmark';
 
 interface PageTransitionCurtainProps {
   isActive: boolean;
@@ -38,7 +39,7 @@ export function PageTransitionCurtain({ isActive, targetLabel }: PageTransitionC
                 transition={{ duration: 0.28, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
                 className="font-mono text-[11px] uppercase tracking-[0.12em] text-[#00C2A8]"
               >
-                /arkon
+                <BrandWordmark tone="light" />
               </motion.div>
               <div className="overflow-hidden">
                 <motion.div

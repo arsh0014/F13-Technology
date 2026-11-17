@@ -4,6 +4,7 @@ import { ArrowUpRight, X } from 'lucide-react';
 import { MENU_NAV_ITEMS } from '../data/siteContent';
 import { ResilientImage } from './ResilientImage';
 import { KineticText } from './motion/KineticLink';
+import { BrandWordmark } from './BrandWordmark';
 
 interface FullScreenMenuProps {
   isOpen: boolean;
@@ -59,7 +60,7 @@ export function FullScreenMenu({
               }}
               className="font-display text-xl font-bold tracking-tight text-white"
             >
-              /arkon
+              <BrandWordmark tone="light" />
             </a>
 
             <button
