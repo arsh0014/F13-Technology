@@ -1,11 +1,32 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { ArrowDown, ArrowRight } from 'lucide-react';
-import { HERO_PLACEHOLDER_STATS } from '../data/siteContent';
+import awsLogo from '../assets/partners/aws.png';
+import dropboxLogo from '../assets/partners/dropbox.png';
+import fortinetLogo from '../assets/partners/fortinet.png';
+import lenovoLogo from '../assets/partners/lenovo.png';
+import microsoftLogo from '../assets/partners/microsoft.png';
+import vmwareLogo from '../assets/partners/vmware.png';
 import { ScrollTrigger, gsap } from '../utils/gsapSetup';
 import { computeScrollWipeState } from '../utils/particleWaveConfig';
 import { DigitalParticleHeroCanvas } from './DigitalParticleHeroCanvas';
 import { KineticText } from './motion/KineticLink';
 import { SplitText } from './motion/SplitText';
+
+const TECH_GIANT_PARTNERS = [
+  { id: 'aws', name: 'AWS Partner Network', src: awsLogo },
+  { id: 'microsoft', name: 'Microsoft Partner Network', src: microsoftLogo },
+  { id: 'vmware', name: 'VMware Partner', src: vmwareLogo },
+  { id: 'lenovo', name: 'Lenovo PCG Partner', src: lenovoLogo },
+  { id: 'fortinet', name: 'Fortinet Authorized Partner', src: fortinetLogo },
+  { id: 'dropbox', name: 'Dropbox Select Partner', src: dropboxLogo },
+];
+
+const MARQUEE_PARTNERS = [
+  ...TECH_GIANT_PARTNERS,
+  ...TECH_GIANT_PARTNERS,
+  ...TECH_GIANT_PARTNERS,
+  ...TECH_GIANT_PARTNERS,
+];
 
 interface CinematicHeroSequenceProps {
   introComplete: boolean;
@@ -32,8 +53,7 @@ export function CinematicHeroSequence({
   const blackEdgeLineRef = useRef<HTMLDivElement>(null);
   const blackLine1Ref = useRef<HTMLSpanElement>(null);
   const blackLine2Ref = useRef<HTMLSpanElement>(null);
-  const blackSubRef = useRef<HTMLParagraphElement>(null);
-  const blackCueRef = useRef<HTMLDivElement>(null);
+  const blackSubRef = useRef<HTMLDivElement>(null);
 
   const wipeProgressRef = useRef(0);
   const pinEndScrollRef = useRef<number | null>(null);
@@ -92,9 +112,6 @@ export function CinematicHeroSequence({
     if (blackSubRef.current) {
       blackSubRef.current.style.opacity = String(eSub);
       blackSubRef.current.style.transform = `translate3d(0, ${(1 - eSub) * 20}px, 0)`;
-    }
-    if (blackCueRef.current) {
-      blackCueRef.current.style.opacity = String(eSub);
     }
   }, []);
 
@@ -232,21 +249,17 @@ export function CinematicHeroSequence({
 
           <div
             ref={whiteContentRef}
-            className="relative z-10 max-w-[1360px] w-full mx-auto flex-1 flex flex-col justify-between will-change-transform"
+            className="relative z-10 max-w-[1360px] w-full mx-auto flex-1 flex flex-col justify-center items-center will-change-transform"
           >
             {/* Center Oversized Editorial Statement */}
-            <div className="my-auto pt-4 sm:pt-6 pb-6 text-center flex flex-col items-center">
-              <div className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.14em] text-[#737373] mb-3 sm:mb-4">
-                / Creative Technology &amp; IT Consulting
-              </div>
-
+            <div className="text-center flex flex-col items-center max-w-4xl mx-auto my-auto py-6">
               <h1
                 className="font-display font-semibold tracking-[-0.045em] text-[#0A0A0A] leading-[0.94] [text-wrap:balance]"
                 style={{ fontSize: 'clamp(2.55rem, 6.8vw, 6.45rem)' }}
               >
                 <SplitText
                   as="span"
-                  text="Beyond Technology."
+                  text="Transforming Your"
                   mode="words"
                   triggerOnScroll={false}
                   ready={introComplete}
@@ -255,12 +268,21 @@ export function CinematicHeroSequence({
                 />
                 <SplitText
                   as="span"
-                  text="Into Possibilities"
-                  accentSuffix="."
+                  text="Business Into A Digital"
                   mode="words"
                   triggerOnScroll={false}
                   ready={introComplete}
-                  delay={0.12}
+                  delay={0.09}
+                  className="block"
+                />
+                <SplitText
+                  as="span"
+                  text="Enterprise"
+                  accentSuffix=" ."
+                  mode="words"
+                  triggerOnScroll={false}
+                  ready={introComplete}
+                  delay={0.14}
                   className="block"
                 />
               </h1>
@@ -290,30 +312,6 @@ export function CinematicHeroSequence({
                 </button>
               </div>
             </div>
-
-            {/* Editable Placeholder Statistics Row */}
-            <div
-              ref={whiteStatsRef}
-              data-testid="white-hero-stats"
-              className="w-full max-w-5xl mx-auto pt-5 sm:pt-7 border-t border-[#0A0A0A]/12 grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-5"
-            >
-              {HERO_PLACEHOLDER_STATS.map((stat) => (
-                <div key={stat.id} data-hero-stat className="text-left group">
-                  <div
-                    className="font-display font-medium tracking-tight text-[#0A0A0A] leading-none tabular-nums transition-colors duration-200 group-hover:text-[#009B86]"
-                    style={{ fontSize: 'clamp(1.95rem, 3.3vw, 2.95rem)' }}
-                  >
-                    {stat.number}
-                  </div>
-                  <div className="mt-2 text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.08em] text-[#0A0A0A]">
-                    {stat.label}
-                  </div>
-                  <div className="mt-0.5 text-[11px] text-[#737373] leading-snug">
-                    {stat.sublabel}
-                  </div>
-                </div>
-              ))}
-            </div>
           </div>
         </section>
 
@@ -339,8 +337,8 @@ export function CinematicHeroSequence({
           aria-label="Interactive Three.js digital wave and engineering statement"
           className={
             reducedMotion
-              ? 'relative w-full min-h-[85vh] bg-black text-white flex flex-col items-center justify-center overflow-hidden px-5 sm:px-8 py-24'
-              : 'absolute inset-0 z-10 w-full h-full bg-black text-white flex flex-col items-center justify-center overflow-hidden px-5 sm:px-8'
+              ? 'relative w-full min-h-[100svh] bg-black text-white flex flex-col justify-between items-center overflow-hidden px-4 sm:px-8 pt-24 pb-6 sm:pb-8'
+              : 'absolute inset-0 z-10 w-full h-full bg-black text-white flex flex-col justify-between items-center overflow-hidden px-4 sm:px-8 pt-20 pb-5 sm:pb-7'
           }
           style={reducedMotion ? undefined : { clipPath: 'inset(100% 0% 0% 0%)' }}
         >
@@ -353,12 +351,15 @@ export function CinematicHeroSequence({
             className="pointer-events-none absolute inset-0 z-[1] bg-[radial-gradient(ellipse_at_center,transparent_38%,rgba(0,0,0,0.58)_100%)]"
           />
 
+          {/* Top spacer to preserve breathing room under fixed navbar */}
+          <div className="w-full h-8 sm:h-12 shrink-0 pointer-events-none" aria-hidden="true" />
+
           {/* Centered Giant Crisp White Editorial Typography */}
-          <div className="relative z-10 max-w-5xl w-full mx-auto text-center pointer-events-none select-none">
+          <div className="relative z-10 max-w-5xl w-full mx-auto text-center pointer-events-none select-none my-auto px-4 py-4">
             <h2
               data-testid="black-hero-headline"
-              className="font-display font-light tracking-[-0.035em] text-white leading-[1.03] [text-shadow:0_8px_36px_rgba(0,0,0,0.88)]"
-              style={{ fontSize: 'clamp(2.45rem, 6.8vw, 6.25rem)' }}
+              className="font-display font-light tracking-[-0.035em] text-white leading-[1.05] [text-shadow:0_8px_36px_rgba(0,0,0,0.88)]"
+              style={{ fontSize: 'clamp(2.35rem, 6.2vw, 5.5rem)' }}
             >
               <span className="block overflow-hidden py-1.5">
                 <span
@@ -370,7 +371,7 @@ export function CinematicHeroSequence({
                       : { transform: 'translate3d(0, 108%, 0)' }
                   }
                 >
-                  Engineering Tomorrow.
+                  We have cloud in our <span className="text-[#00A994]">DNA</span>. We believe in
                 </span>
               </span>
               <span className="block overflow-hidden py-1.5">
@@ -383,42 +384,52 @@ export function CinematicHeroSequence({
                       : { transform: 'translate3d(0, 108%, 0)' }
                   }
                 >
-                  Transforming Business<span className="text-[#00E5A3]">.</span>
+                  #MakingChangesHappen
                 </span>
               </span>
             </h2>
-
-            <p
-              ref={blackSubRef}
-              className="mt-6 sm:mt-8 text-xs sm:text-sm md:text-[15px] text-white/78 max-w-md mx-auto leading-relaxed font-normal [text-shadow:0_4px_20px_rgba(0,0,0,0.9)] will-change-transform"
-              style={
-                reducedMotion
-                  ? undefined
-                  : { opacity: 0, transform: 'translate3d(0, 20px, 0)' }
-              }
-            >
-              We architect the systems, intelligence, and digital interfaces that give modern
-              enterprises an unmistakable edge.
-            </p>
           </div>
 
-          {/* Interactive subtle bottom cue + quick skip to showcase/impact */}
+          {/* Sliding Tech Giants Partner Marquee Strip at Bottom (replaces move cursor cue) */}
           <div
-            ref={blackCueRef}
-            className="absolute bottom-6 sm:bottom-8 inset-x-0 z-10 flex items-center justify-center pointer-events-auto"
-            style={reducedMotion ? undefined : { opacity: 0 }}
+            ref={blackSubRef}
+            className="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center pointer-events-auto will-change-transform pb-1 sm:pb-2 shrink-0"
+            style={
+              reducedMotion
+                ? undefined
+                : { opacity: 0, transform: 'translate3d(0, 20px, 0)' }
+            }
           >
             <button
               type="button"
               onClick={onExploreImpact}
-              className="group inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.14em] text-white/55 hover:text-[#00E5A3] transition-colors cursor-pointer"
+              className="group inline-flex items-center gap-1.5 font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.16em] text-[#00E5A3] hover:text-white transition-colors cursor-pointer mb-2.5 sm:mb-3"
             >
-              <span>Move cursor to interact · Explore Impact</span>
+              <span>Partnered with the world’s largest tech giants:</span>
               <ArrowDown
-                className="w-3 h-3 transition-transform duration-200 group-hover:translate-y-0.5"
+                className="w-3 h-3 transition-transform duration-200 group-hover:translate-y-0.5 opacity-70 group-hover:opacity-100"
                 aria-hidden="true"
               />
             </button>
+
+            {/* Edge-faded horizontal track container */}
+            <div className="relative w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
+              <div className="flex w-max items-center gap-3.5 sm:gap-5 animate-marquee hover:[animation-play-state:paused] py-1">
+                {MARQUEE_PARTNERS.map((partner, index) => (
+                  <div
+                    key={`${partner.id}-${index}`}
+                    className="flex items-center justify-center px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-white shadow-md shadow-black/60 border border-white/20 transition-all duration-300 hover:scale-105 hover:border-[#00E5A3]/50 shrink-0"
+                  >
+                    <img
+                      src={partner.src}
+                      alt={partner.name}
+                      className="h-5 sm:h-6.5 w-auto object-contain select-none pointer-events-none"
+                      loading="eager"
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </section>
       </div>

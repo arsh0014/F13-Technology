@@ -12,7 +12,6 @@ import { Navbar } from './components/Navbar';
 import { ProcessSection } from './components/ProcessSection';
 import { ProjectsSection } from './components/ProjectsSection';
 import { ServicesSection } from './components/ServicesSection';
-import { ShowcaseBentoSection } from './components/ShowcaseBentoSection';
 import { StudioSection } from './components/StudioSection';
 import { TestimonialsSection } from './components/TestimonialsSection';
 import { WhyUsSection } from './components/WhyUsSection';
@@ -211,10 +210,6 @@ export default function App() {
             menuOpen={menuOpen}
             onExploreImpact={() => jumpToSection('impact', false)}
             onRequestScrollToY={handleScrollToY}
-          />
-
-          <ShowcaseBentoSection
-            onInspectProjects={() => jumpToSection('projects', false)}
           />
 
           <ImpactSection onViewResults={() => jumpToSection('projects', false)} />
